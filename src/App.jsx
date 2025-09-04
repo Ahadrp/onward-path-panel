@@ -1,6 +1,8 @@
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import PrivateRoute from "./PrivateRoute";
+import ProfilePage from "./ProfilePage";
+import BuyConfigPage from "./BuyConfigPage";
 
 // Home page with navigation
 function Home() {
@@ -157,10 +159,18 @@ export default function App() {
         path="/profile"
         element={
           <PrivateRoute>
-            <Profile />
+            <ProfilePage />
           </PrivateRoute>
         }
       />
+      <Route
+          path="/buy-config"
+          element={
+            <PrivateRoute>
+              <BuyConfigPage />
+            </PrivateRoute>
+          }
+        />
     </Routes>
   );
 }
