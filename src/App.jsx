@@ -28,7 +28,7 @@ function Register() {
 
     try {
       // Change this URL to your backend's register endpoint
-      const res = await fetch("http://192.168.109.100:2332/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,9 +76,66 @@ function Register() {
   );
 }
 
-// Login Page placeholder (we'll implement soon)
+// Login Page
 function Login() {
-  return <h2>Login Page (to be implemented)</h2>;
+  const [email, setEmail] = useState("");
+  const [passwd, setPasswd] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({ email, passwd }),
+      });
+
+      if (res.ok) {
+        setMessage("Login successful!");
+        setTimeout(() => navigate("/profile"), 1000);
+      } else {
+        const data = await res.json();
+        setMessage(data.message || "Login failed.");
+      }
+    } catch (err) {
+      setMessage("Error: " + err.message);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email: </label>
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password: </label>
+          <input
+            type="password"
+            value={passwd}
+            onChange={e => setPasswd(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <div style={{ color: "red", marginTop: 10 }}>{message}</div>
+    </div>
+  );
 }
 
 // Profile Page placeholder
