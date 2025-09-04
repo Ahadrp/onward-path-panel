@@ -1,5 +1,6 @@
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import PrivateRoute from "./PrivateRoute";
 
 // Home page with navigation
 function Home() {
@@ -98,6 +99,9 @@ function Login() {
       });
 
       if (res.ok) {
+        const data = await res.json();
+        // Assuming backend returns { token: "..." }
+        localStorage.setItem("onwardpath_session_token", data.obj);
         setMessage("Login successful!");
         setTimeout(() => navigate("/profile"), 1000);
       } else {
@@ -149,7 +153,14 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }
