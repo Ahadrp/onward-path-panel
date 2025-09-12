@@ -3,6 +3,7 @@ import { useState } from "react";
 import PrivateRoute from "./PrivateRoute";
 import ProfilePage from "./ProfilePage";
 import BuyConfigPage from "./BuyConfigPage";
+import UserConfigsPage from "./UserConfigsPage";
 
 // Home page with navigation
 function Home() {
@@ -168,6 +169,14 @@ export default function App() {
           element={
             <PrivateRoute>
               <BuyConfigPage />
+            </PrivateRoute>
+          }
+        />
+      <Route
+          path="/user-configs"
+          element={
+            <PrivateRoute>
+              <UserConfigsPage />
             </PrivateRoute>
           }
         />

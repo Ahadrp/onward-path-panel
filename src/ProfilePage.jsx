@@ -14,6 +14,12 @@ export default function ProfilePage() {
       >
         Buy Config
       </button>
+      <button
+        style={{ padding: "10px 24px", marginTop: 32 }}
+        onClick={() => navigate("/user-configs")}
+      >
+        My Configs
+      </button>
     </div>
   );
 }

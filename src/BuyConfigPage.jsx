@@ -26,7 +26,7 @@ const TRAFFIC_PRESETS_MB = [
 
 export default function BuyConfigPage() {
   // Server selection (only one)
-  const [server, setServer] = useState(0);
+  const [server, setServer] = useState(1);
 
   // Duration selection
   const [durationType, setDurationType] = useState("preset"); // or "custom"
@@ -84,7 +84,7 @@ export default function BuyConfigPage() {
     const payload = {
       server: server,
       total: totalBytes,
-      flow: "50", // always 50 for now
+      flow: "", // always empty for now
       expiry_time: expiryTime,
     };
 
